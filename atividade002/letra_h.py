@@ -7,84 +7,65 @@
 
 
 import os
+# classe mãe
+class Intervalo:
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        self.inicio = int(inicio)
+        self.fim = int(fim)
 
+    def mostrar_intervalo(self, inicio, fim):
+        pass # nao colocamos nada porque o metodo será sobrecarregado
+   
+class Manipular_Intervalos(Intervalo):
+    def __init__(self, inicio, fim):
+        super().__init__(inicio, fim)
 
-class Numero:
-    def __init__(self, comeco, fim):
-        self.comeco = comeco
-        self.fim = fim
-        self.lista = list(range(comeco,fim+1))
-
-    def get_comeco(self):
-        return self.comeco
-    def get_fim(self):
-        return self.fim
-    def get_lista(self):
-        return self.lista
-    
-    def set_comeco(self, value):
-        self.comeco = value
-    def set_fim(self, value):
-        self.fim = value
-    
-    
-    def mostrar_lista(self):
-        for i in self.lista:
+    def mostrar_intervalo(self):
+        for i in range(self.inicio, self.fim + 1):
             print(i, end='|')
-    def mostrar_lista_inversa(self):
-        for i in reversed (self.lista):
-            print(i, end='|')
-    def mostrar_pares(self):
-        pares=[]
-        for i in self.lista:
-            if i % 2 == 0:
-                pares.append(i)
-        return pares
-    def soma_pares(self):
-        soma = 0
-        for i in self.lista:
-            if i % 2 == 0:
-                soma += i
-        return soma
-    def calcula_primo(self):
-        primos = []
-        for i in self.lista:
-            if i < 2:
-                continue # ignora os primeiros numeros
-            somatorio = 0
-            for j in range(1,1+i):
-                if i%j == 0:
-                    somatorio += 1
-            if somatorio == 2:
-                primos.append(i)
-        return primos
-    def mostrar_lista_excecao(self,n1, n2, n3):
-        for i in self.lista:
+
+    def mostrar_intervalo_excecao(self,n1, n2, n3):
+        n1 = int(n1)
+        n2 = int(n2)
+        n3 = int(n3)
+        for i in range(self.inicio, self.fim+1):
             if i == n1 or i == n2 or i == n3:
                 continue
             print(i, end='|')
 
+class Numero:
+    def __init__(self):
+        #self.numero = numero
+        pass
+    def obter_numero(self,msg):
+        while True:
+            numero = input(msg)
+            if numero.isnumeric:
+                return int(numero)
+            else:
+                print('Informe um número inteiro válido: ')
+        
 
 
 # entrada de dados
+
 print('-'*70)
 print('INTERVALO')
 print('='*70)
-comeco = int(input('Informe o primeiro número do intervalo desejado: '))
-fim = int(input('Informe o último número do intervalo: '))
-print('='*70)
-minha_lista = Numero(comeco, fim)
-soma = minha_lista.soma_pares()
-primos = minha_lista.calcula_primo()
+
+n = Numero()
+inicio = n.obter_numero('Infome o primeiro número do intervalo: ')
+fim = n.obter_numero('Infome o último número do intervalo: ')
+n1 = n.obter_numero('Infome o primeiro número a ser ignorado: ')
+n2 = n.obter_numero('Infome o segundo número a ser ignorado: ')
+n3 = n.obter_numero('Infome o terceiro número a ser ignorado: ')
+
+minha_lista = Manipular_Intervalos(inicio, fim)
+
 print('-'*70)
-print('O intervalo informado foi: ') 
-print(minha_lista.mostrar_lista())
+print('O intervalo escolhido foi: ') 
+print(minha_lista.mostrar_intervalo_excecao(n1, n2, n3))
 print('-'*70)
-primeiro_numero = int(input('Informe o primeiro numero a ser excluído: '))
-segundo_numero = int(input('Informe o segundo numero a ser excluído: '))
-terceiro_numero = int(input('Informe o terceiro numero a ser excluído: '))
-print('-'*70)
-print('A nova lista é:')
-print('='*70)
-print(minha_lista.mostrar_lista_excecao(primeiro_numero, segundo_numero, terceiro_numero))
-print('-'*70)
+
+print(f'Os numeros excluídos foram {n1}, {n2}, {n3}')

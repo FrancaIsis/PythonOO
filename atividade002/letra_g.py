@@ -6,72 +6,60 @@
 
 
 import os
+# classe mãe
+class Intervalo:
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        self.inicio = int(inicio)
+        self.fim = int(fim)
 
+    def mostrar_intervalo(self, inicio, fim):
+        pass # nao colocamos nada porque o metodo será sobrecarregado
+   
+class Manipular_Intervalos(Intervalo):
+    def __init__(self, inicio, fim):
+        super().__init__(inicio, fim)
 
-class Numero:
-    def __init__(self, comeco, fim):
-        self.comeco = comeco
-        self.fim = fim
-        self.lista = list(range(comeco,fim+1))
-
-    def get_comeco(self):
-        return self.comeco
-    def get_fim(self):
-        return self.fim
-    def get_lista(self):
-        return self.lista
-    
-    def set_comeco(self, value):
-        self.comeco = value
-    def set_fim(self, value):
-        self.fim = value
-    
-    
-    def mostrar_lista(self):
-        for i in self.lista:
+    def mostrar_intervalo(self, inicio, fim):
+        for i in range(self.inicio, self.fim + 1):
             print(i, end='|')
-    def mostrar_lista_inversa(self):
-        for i in reversed (self.lista):
-            print(i, end='|')
-    def mostrar_pares(self):
-        pares=[]
-        for i in self.lista:
-            if i % 2 == 0:
-                pares.append(i)
-        return pares
-    def soma_pares(self):
-        soma = 0
-        for i in self.lista:
-            if i % 2 == 0:
-                soma += i
-        return soma
+
     def calcula_primo(self):
-        primos = []
-        for i in self.lista:
+        for i in range(self.inicio, self.fim + 1):
             if i < 2:
                 continue # ignora os primeiros numeros
-            somatorio = 0
-            for j in range(1,1+i):
+            
+            for j in range(2,i):
                 if i%j == 0:
-                    somatorio += 1
-            if somatorio == 2:
-                primos.append(i)
-        return primos
+                    break
+            else:
+                print(i, end='|')
+        
 
 
 # entrada de dados
+
+while True:
+    inicio = input('Informe o primeiro número do intervalo: ')
+    if inicio.isnumeric():
+        fim = input('Informe o último número do intervalo: ')
+        if fim.isnumeric():
+            break
+        else:
+            print('Informe um numero válido.')
+    else: 
+        print('Informe um número válido.')
+
 print('-'*70)
 print('INTERVALO')
+
 print('='*70)
-comeco = int(input('Informe o primeiro número do intervalo desejado: '))
-fim = int(input('Informe o último número do intervalo: '))
-print('='*70)
-minha_lista = Numero(comeco, fim)
-soma = minha_lista.soma_pares()
-primos = minha_lista.calcula_primo()
+minha_lista = Manipular_Intervalos(inicio, fim)
+
 print('-'*70)
 print('O intervalo informado foi: ') 
-print(minha_lista.mostrar_lista())
+print(minha_lista.mostrar_intervalo(inicio, fim))
 print('-'*70)
 
-print(f'Os numeros primos no intervalo informado são:\n{primos}')
+print(f'Os numeros primos no intervalo informado são:\n')
+print(minha_lista.calcula_primo())

@@ -7,35 +7,52 @@
 
 import os
 
-class Numero:
-    def __init__(self, comeco, fim):
-        self.comeco = comeco
-        self.fim = fim
-        self.lista = list(range(comeco,fim+1))
+# classe mãe
+class Intervalo:
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        self.inicio = int(inicio)
+        self.fim = int(fim)
 
-    def get_comeco(self):
-        return self.comeco
-    def get_fim(self):
-        return self.fim
-    def get_lista(self):
-        return self.lista
-    
-    def set_comeco(self, value):
-        self.comeco = value
-    def set_fim(self, value):
-        self.fim = value
-    
-    
-    def mostrar_lista(self):
-        for i in self.lista:
+    def mostrar_intervalo(self, inicio, fim):
+        pass # nao colocamos nada porque o metodo será sobrecarregado
+
+# classe filha
+class Mostrar(Intervalo): # passa como parametro a classe mãe
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        super().__init__(inicio, fim) # o proprio vscode ja preenche com a herança da classe super
+    # metodo sobrecarregado
+    def mostrar_intervalo(self):
+        for i in range(self.inicio, self.fim + 1):
             print(i, end='|')
 
-# entrada de dados
+# solicitando dados do usuario
+while True:
+    inicio = input('Digite o primeiro numero do intervalo: ')
+    if inicio.isnumeric():
+        fim = input('Digite o segundo numero do intervalo: ')
+        if fim.isnumeric():
+            break
+        else:
+            print('Valor inválido.')
+    else:
+        print('Valor inválido.')
+
+
+# Declarações de variáveis:
+minha_lacuna = object
+
+# Limpeza do terminal:
+os.system('cls' if os.name == 'nt' else 'clear')
+
+# Instanciando o objeto
+minha_lacuna = Mostrar(inicio, fim)
+
+# mostrando resultados
 print('-'*70)
-print('INTERVALO')
-print('='*70)
-comeco = int(input('Informe o primeiro número do intervalo desejado: '))
-fim = int(input('Informe o último número do intervalo: '))
-print('='*70)
-minha_lista = Numero(comeco, fim)
-print(minha_lista.mostrar_lista())
+print(f'Os numeros contidos no intervalo {minha_lacuna.inicio} e {minha_lacuna.fim} é:')
+print('-'*70)
+
+print(minha_lacuna.mostrar_intervalo())
+

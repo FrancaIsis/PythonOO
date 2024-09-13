@@ -7,17 +7,38 @@
 
 import os
 
-class Numero:
-    def __init__(self):
-        self.lista = list(range(1,101))
+class Intervalo:
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        self.inicio = inicio
+        self.fim = fim
 
-    def get_numero(self):
-        return self.lista
-    #def set_numero(self, value):
-    
-    def mostrar_lista(self):
-        for i in self.lista:
+    def mostrar_intervalo(self, inicio, fim):
+        pass # nao colocamos nada porque o metodo será sobrecarregado
+
+# criando uma classe filha
+class Mostrar(Intervalo): # passa como parametro a classe mãe
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        super().__init__(inicio, fim) # o proprio vscode ja preenche com a herança da classe super
+    # metodo sobrecarregado
+    def mostrar_intervalo(self):
+        for i in range(self.inicio, self.fim):
             print(i, end='|')
 
-minha_lista = Numero()
-print(minha_lista.mostrar_lista())
+# Declarações de variáveis:
+minha_lacuna = object
+
+# Limpeza do terminal:
+os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# Instanciando o objeto
+minha_lacuna = Mostrar(inicio=1, fim=101)
+
+# mostrando resultados
+print('-'*70)
+print(f'Os numeros contidos no intervalo {minha_lacuna.inicio} e {minha_lacuna.fim -1} é:')
+print('-'*70)
+
+print(minha_lacuna.mostrar_intervalo())

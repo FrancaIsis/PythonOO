@@ -6,46 +6,54 @@
 
 
 import os
+# classe mãe
+class Intervalo:
+    # metodo construtor
+    def __init__(self, inicio, fim):
+        self.inicio = int(inicio)
+        self.fim = int(fim)
 
+    def mostrar_intervalo(self, inicio, fim):
+        pass # nao colocamos nada porque o metodo será sobrecarregado
 
-class Numero:
-    def __init__(self, comeco, fim):
-        self.comeco = comeco
-        self.fim = fim
-        self.lista = list(range(comeco,fim+1))
+# # classe filha
+# class Mostrar(Intervalo): # passa como parametro a classe mãe
+#     # metodo construtor
+#     def __init__(self, inicio, fim):
+#         super().__init__(inicio, fim) # o proprio vscode ja preenche com a herança da classe super
+#     # metodo sobrecarregado
+#     def mostrar_intervalo(self):
+#         for i in range(self.inicio, self.fim + 1):
+#             print(i, end='|')
 
-    def get_comeco(self):
-        return self.comeco
-    def get_fim(self):
-        return self.fim
-    def get_lista(self):
-        return self.lista
-    
-    def set_comeco(self, value):
-        self.comeco = value
-    def set_fim(self, value):
-        self.fim = value
-    
-    
-    def mostrar_lista(self):
-        for i in self.lista:
-            print(i, end='|')
-    def mostrar_lista_inversa(self):
-        for i in reversed (self.lista):
-            print(i, end='|')
-    def mostrar_pares(self):
-        pares=[]
-        for i in self.lista:
+# # classe filha
+# class Mostrar_Invertido(Intervalo):
+#     def __init__(self, inicio, fim):
+#         super().__init__(inicio, fim)
+#     def mostrar_intervalo(self, inicio, fim):
+#         for i in reversed (range(self.inicio, self.fim + 1)):
+#             print(i, end='|')
+
+class Mostrar_Pares(Intervalo):
+    def __init__(self, inicio, fim):
+        super().__init__(inicio, fim)
+    def mostrar_intervalo(self, inicio, fim):
+        for i in range(self.inicio, self.fim + 1):
             if i % 2 == 0:
-                pares.append(i)
-        return pares
+                print(i, end='|')
 
+
+# Declarações de variáveis:
+minha_lista = object
+
+# Limpeza do terminal:
+os.system('cls' if os.name == 'nt' else 'clear')
 # entrada de dados
 print('-'*70)
 print('INTERVALO')
 print('='*70)
-comeco = int(input('Informe o primeiro número do intervalo desejado: '))
-fim = int(input('Informe o último número do intervalo: '))
+inicio = 0
+fim = 100
 print('='*70)
-minha_lista = Numero(comeco, fim)
-print(minha_lista.mostrar_pares())
+minha_lista = Mostrar_Pares(inicio, fim)
+print(minha_lista.mostrar_intervalo(inicio, fim))
